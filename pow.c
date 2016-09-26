@@ -4,6 +4,7 @@
 #include<string.h>
 #define MAX 1000000
 char * strminusone(char []);
+
 char * strminusone(char a[]){
  	int i, j, k=0;
 	i = strlen(a)-1;
@@ -95,29 +96,45 @@ char * main() {
 	char a[MAX], b[MAX];
 	char d[MAX];
 	char cc[MAX];
-	char *c;
-	int i=0,j,k;
+	char *c,*dd;
+	int u=1,kk=0,flag=0,i=0,j,k;
+	// now handlng the case of decimal but of only base number. please
+		while(scanf("%s%s",a,b)){
 	
-	while(scanf("%s%s",a,b)){
-	
-		i=strlen(a);
-		j=0;
-		j=strlen(b);
 		k=0;
-		j=strlen(b)-1;
-	
+		j=0;
+		///condition of real numbers...............
+		while(a[j]!='.' ) {
+			if(a[j+1]=='.')
+				flag=1;
+			j++;
+		}
+		j++;
+		if(flag==1){
+			i=strlen (a);
+			
+			kk=j;
+			kk = strlen(a)-kk;
+			j=j-1;
+			while(j < i) {
+				a[j]=a[j+1];
+				j++;
+			}
+		}
+		k=0;
+		i=strlen(a);
 		j=strlen(b);
 		strcpy(d,a);
 		strcpy(cc,a);
 		strminusone(b);
 		while(b[0]!='0') {
+			u++;
 			strcpy(a,d);
 			c=multiply(cc,a);
 			strcpy(cc,c);
 			strminusone(b);
 		}
-		i=0;
-		k=0;
+	
 		while(cc[i]=='0') {
 			k++;
 			i++;
@@ -130,7 +147,32 @@ char * main() {
 			i++;
 			k++;
 		}
-		printf("hi%s\n",cc);
+			/////////////////////////////////////////////////////decimal part
+			
+		
+		u=(u)*kk;
+		if (flag == 1) {
+        		u=strlen(cc)-u;
+        		k=strlen(cc);
+        		while ( k >= u ) {
+				cc[k+1] = cc[k];
+				k--;
+			}
+			cc[k+1] = '.';///////////////////////////////hello.
+			printf("position of decimal point if you are searching %d\n",k+1);
+		}
+		i=0;
+		k=strlen(cc);;
+		while(c[i]=='0'){
+			i++;
+			
+		}
+		kk=0;
+		while(k>0) {
+			cc[kk]=cc[kk+1];
+			kk++;
+			k--;
+		}
+		printf("%s\n",cc);
 	}
 }
-
